@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&family=Tajawal:wght@300;400&display=swap" rel="stylesheet">
+   <title>Converter</title>
+</head>
+<body>
+    <div class="container-fluid my-4">
+       <div class="row d-flex justify-content-center">
+         <div class="col-12 col-md-8 shadow-lg p-5 content">
+            <h2 class="text-dark text-center mb-5">Convert DB Command</h2>
+             <div>
+                <p>Parameters</p>
+                <textarea class="form-control shadow" rows="6" spellcheck="false" id="parameter" placeholder="Ex : [Parameters=[@p0='355']]"></textarea>
+             </div>
+             <div class="my-4">
+                <p>Query</p>
+                <textarea class="form-control shadow" rows="6" id="command" spellcheck="false" placeholder="Ex : INSERT INTO [example].[example] ([Id]) VALUES (@p0);"></textarea>
+             </div>
+             <div class="text-center">
+                <button class="btn btn-primary me-2" onclick="Convert()">Convert</button>
+                <button class="btn btn-danger" onclick="Clear()">Clear</button>
+             </div>
+             <div class="my-2">
+                <p>Result</p>
+                <textarea class="form-control shadow" rows="6" spellcheck="false" id="result" placeholder="Ex : INSERT INTO [example].[example] ([Id]) VALUES ( '355' );"></textarea>
+             </div>
+             <div class="text-end">
+               <small>Done By <strong>i.alawagleh@t2.sa</strong></small>
+             </div>
+         </div>
+       </div>
+    </div>
+</body>
+
+<script>
+    function Convert(){
+        var parameters = document.getElementById('parameter').value;
+        var command = document.getElementById('command').value;
+        var result = document.getElementById('result');
+        var regex = /\d+/g;   
+        var matches = parameters.match(regex);
+        var index = parseInt(matches[0]);
+        var words = parameters.replace(/([\[\].,()]+)/g,',');
+        words = words.split(",");
+        words = words.filter(x => x.includes('@p'))
+        for(let i = 0;i < words.length;i++){
+        var p = '@p' +index;
+        if(words[i].includes(p)){
+           let start_pos = words[i].indexOf(p);
+           let end_pos =start_pos + (p+'=').length;
+           command = command.replace(p,words[i].substring(end_pos));
+           }
+           index++;
+        }
+        result.value = command;
+    }
+
+    function Clear(){
+        var parameters = document.getElementById('parameter');
+        var command = document.getElementById('command');
+        var result = document.getElementById('result');
+        parameters.value = '';
+        command.value = '';
+        result.value = '';
+    }
+
+</script>
+
+
+</html>

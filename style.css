@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box !important;
+    font-family: 'Tajawal', sans-serif !important;
+}
+
+body{
+    background-color: #e6e6e6 !important;
+}
+
+p{
+    font-weight: bold;
+    width: fit-content;
+}
+
+h2 , p{
+    background-color: #d7d7d7;
+    padding: 10px;
+    border-radius: 15px; 
+}
+
+
+textarea{
+    max-height: 500px;
+    background-color: #d7d7d7 !important;
+    border-radius: 15px !important;
+    padding: 15px !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background:grey; 
+}
+
+.content{
+    background-color: #e6e6e6 !important;
+    border-radius: 20px;
+}
