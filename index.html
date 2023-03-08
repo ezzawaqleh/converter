@@ -47,7 +47,7 @@
         var regex = /\d+/g;   
         var matches = parameters.match(regex);
         var index = parseInt(matches[0]);
-        var words = parameters.replace(/([\[\].,()]+)/g,',');
+        var words = parameters.replace(/([\[\],()]+)/g,',');
         words = words.split(",");
         words = words.filter(x => x.includes('@p'))
         for(let i = 0;i < words.length;i++){
